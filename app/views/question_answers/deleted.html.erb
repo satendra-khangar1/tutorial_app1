@@ -1,0 +1,33 @@
+<body>
+  <div class="container mt-4">
+    <h1>Deleted Question Answers for <%= @category.name %></h1>
+
+    <div class="accordion" id="deletedQuestionAnswersAccordion">
+      <% @deleted_question_answers.each_with_index do |question_answer, index| %>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingDeleted<%= index %>">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDeleted<%= index %>" aria-expanded="true" aria-controls="collapseDeleted<%= index %>">
+              <%= question_answer.question %>
+            </button>
+          </h2>
+          <div id="collapseDeleted<%= index %>" class="accordion-collapse collapse" aria-labelledby="headingDeleted<%= index %>" data-bs-parent="#deletedQuestionAnswersAccordion">
+            <div class="accordion-body">
+              <%= question_answer.answer %>
+              <div class="d-flex justify-content-end mt-3">
+                
+                <%= button_to 'Restore', restore_category_question_answer_path(@category, question_answer), method: :put, class: 'btn btn-primary' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mt-4">
+      <%= will_paginate @deleted_question_answers %>
+    </div>
+
+    <%= link_to 'Back to Categories', categories_path, class: 'btn btn-secondary mt-4' %>
+  </div>
+
+</body>

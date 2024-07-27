@@ -1,0 +1,18 @@
+<%= form_with(model: [@category, @question_answer], local: true) do |form| %>
+  
+
+  <div class="mb-3">
+    <%= form.label :question, class: "form-label" %>
+    <%= form.text_area :question, class: "form-control", rows: 3 %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :answer, class: "form-label" %>
+    <%= form.text_area :answer, class: "form-control", rows: 3 %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit "Save", class: "btn btn-primary" %>
+    <%= link_to 'Cancel', category_question_answers_path(@category), class: 'btn btn-secondary' %>
+  </div>
+<% end %>

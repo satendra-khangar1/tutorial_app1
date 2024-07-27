@@ -1,0 +1,22 @@
+<body>
+  <div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="mb-0">Category: <%= @category.name %></h1>
+      <div>
+        <%= link_to 'Edit Category', edit_category_path(@category), class: 'btn btn-secondary me-2' %>
+        <%= link_to 'Delete Category', category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end mb-4">
+      <%= link_to 'New Question Answer', new_category_question_answer_path(@category), class: 'btn btn-primary' %>
+      <%= link_to 'View Deleted Question Answers', deleted_category_question_answers_path(@category), class: 'btn btn-secondary ms-2' %>
+    </div>
+
+    
+
+    <div class="mt-4">
+      <%= link_to 'Back to Categories', categories_path, class: 'btn btn-secondary' %>
+    </div>
+  </div>
+
+</body>

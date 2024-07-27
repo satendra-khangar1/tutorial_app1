@@ -1,0 +1,45 @@
+<body>
+  <div class="container mt-4">
+    <h1>Question Answers for <%= @category.name %></h1>
+
+    <div class="d-flex justify-content-end mb-3">
+      <%= link_to 'New Question Answer', new_category_question_answer_path(@category), class: 'btn btn-primary' %>
+    </div>
+    
+        <!-- Ransack Search Form -->
+      <div class="mb-3">
+        <%= search_form_for @q, url: category_question_answers_path(@category), method: :get, class: 'd-flex' do |f| %>
+          <%= f.label :question_cont, 'Search Question:', class: 'me-2' %>
+          <%= f.search_field :question_cont, class: 'form-control me-2', placeholder: 'Search questions...' %>
+          <%= f.submit 'Search', class: 'btn btn-outline-primary' %>
+        <% end %>
+      </div>
+
+    <div class="accordion" id="questionAnswersAccordion">
+      <% @question_answers.each_with_index do |question_answer, index| %>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading<%= index %>">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= index %>" aria-expanded="true" aria-controls="collapse<%= index %>">
+              <%= question_answer.question %>
+            </button>
+          </h2>
+          <div id="collapse<%= index %>" class="accordion-collapse collapse" aria-labelledby="heading<%= index %>" data-bs-parent="#questionAnswersAccordion">
+            <div class="accordion-body">
+              <%= simple_format(question_answer.answer) %>
+              <div class="d-flex justify-content-end mt-3">
+                <%= link_to 'Edit', edit_category_question_answer_path(@category, question_answer), class: 'btn btn-secondary me-2' %>
+                <%= button_to 'Delete', [@category, question_answer], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mt-4">
+      <%= will_paginate @question_answers %>
+    </div>
+
+    <%= link_to 'Back to Categories', categories_path, class: 'btn btn-secondary mt-4' %>
+  </div>
+</body>
