@@ -24,6 +24,20 @@ class QuestionAnswersController < ApplicationController
     redirect_to category_question_answers_path(@category), notice: 'Question answer was successfully created.'
   end
 
+  def edit
+    @question_answer = QuestionAnswer.find(params[:id])
+    
+  end
+
+  def update
+    @question_answer = QuestionAnswer.find(params[:id])
+    unless @question_answer.update(question_answer_params)
+      render :edit and return
+    end
+    
+    redirect_to category_question_answers_path(@category), notice: 'Question answer was successfully Updated.'   
+  end
+
   def destroy
     @question_answer = @category.question_answers.find(params[:id])
     @question_answer.destroy
